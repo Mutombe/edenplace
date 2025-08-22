@@ -1,291 +1,338 @@
 import React, { useState, useEffect } from "react";
-import { Calendar, Phone, MapPin, Star, ChevronDown, Award, Info, Camera } from "lucide-react";
+import { Calendar, Phone, MapPin, Star, ChevronDown, Award, Info, Camera, TreePine, Leaf, Target, Users, Heart, Shield } from "lucide-react";
+import Gallery from "./gallery";
+import VenueSpaces from "./venue";
+import About from './about';
+import Services from './services';
+
+// Eden Place Logo Component
+const EdenPlaceLogo = ({ size = "default" }) => {
+  const logoSize = size === "large" ? "w-20 h-20" : size === "small" ? "w-12 h-12" : "w-16 h-16";
+
+  return (
+    <div className={`relative ${logoSize} rounded-xl bg-gradient-to-br from-emerald-600 via-green-600 to-emerald-700 flex items-center justify-center shadow-2xl overflow-hidden`}>
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-green-700/20" />
+      <div className="relative z-10 w-full h-full flex items-center justify-center p-2">
+        {/* Corrected tag and attribute */}
+        <img src="/logo.png" alt="Eden Place Logo" className="w-full h-full object-contain filter brightness-75" />
+      </div>
+    </div>
+  );
+};
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  const backgroundImages = [
+    'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2098&q=80',
+    'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80',
+    'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+  ];
 
   useEffect(() => {
     setIsVisible(true);
+    
+    // Background image rotation
+    const imageInterval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % backgroundImages.length);
+    }, 5000);
+
+    return () => clearInterval(imageInterval);
   }, []);
 
-  // Animation variants for different elements
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const slideUpVariants = {
-    hidden: { opacity: 0, y: 50, scale: 0.95 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.8,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      },
-    },
-  };
-
-  const slideInLeftVariants = {
-    hidden: { opacity: 0, x: -50 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      },
-    },
-  };
-
-  const slideInRightVariants = {
-    hidden: { opacity: 0, x: 50 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      },
-    },
-  };
-
-  const floatingAnimation = {
-    animate: {
-      y: [-8, 8, -8],
-      transition: {
-        duration: 4,
-        repeat: Infinity,
-        ease: "easeInOut",
-      },
-    },
-  };
-
-  const pulseAnimation = {
-    animate: {
-      scale: [1, 1.05, 1],
-      transition: {
-        duration: 3,
-        repeat: Infinity,
-        ease: "easeInOut",
-      },
-    },
-  };
-
   return (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-amber-900"
-    >
-      {/* Enhanced Background with Multiple Layers */}
-      <div className="absolute inset-0">
-        {/* Main Background Image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2098&q=80')`,
-          }}
-        />
-        
-        {/* Gradient Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-slate-900/60 to-amber-900/50" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0">
-          {[...Array(30)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute rounded-full animate-pulse"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                width: `${Math.random() * 4 + 1}px`,
-                height: `${Math.random() * 4 + 1}px`,
-                backgroundColor: `rgba(251, 191, 36, ${Math.random() * 0.3 + 0.1})`,
-                animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${Math.random() * 2 + 2}s`,
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Floating Geometric Shapes */}
-        <div className="absolute inset-0 overflow-hidden">
-          {[...Array(8)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute opacity-10 animate-bounce"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${Math.random() * 4 + 4}s`,
-              }}
-            >
-              <div className="w-6 h-6 md:w-8 md:h-8 border border-amber-400 rotate-45 transform" />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Main Content Container */}
-      <div
-        className={`pt-24 relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 pb-8 transition-all duration-1000 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}
+    <>
+      <section
+        id="home"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-emerald-900 via-green-800 to-emerald-700"
       >
-        
-        {/* Enhanced Subtitle */}
-        <div
-          className={`text-center mb-8 sm:mb-12 transition-all duration-1000 delay-400 pt-24 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-        >
-          <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-amber-100 mb-3 sm:mb-4 font-light max-w-4xl mx-auto leading-relaxed px-2">
-            Where extraordinary moments become
-            <span className="text-amber-300 font-medium"> timeless memories</span>
-          </p>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-amber-200 max-w-2xl mx-auto px-2">
-            Premium event space in the heart of Harare, Zimbabwe
-          </p>
-        </div>
-
-        {/* Location Badge with Animation */}
-        <div
-          className={`flex justify-center mb-8 sm:mb-12 transition-all duration-1000 delay-500 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-        >
-          <div className="group flex items-center space-x-2 sm:space-x-3 bg-white/10 backdrop-blur-md rounded-full px-4 sm:px-6 py-2 sm:py-3 border border-white/20 hover:bg-white/20 hover:scale-105 transition-all duration-300 cursor-pointer">
-            <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 group-hover:animate-pulse" />
-            <span className="text-white text-sm sm:text-base font-medium">Hogerty Hill, Harare</span>
-          </div>
-        </div>
-
-        {/* Enhanced CTA Buttons - Mobile First */}
-        <div
-          className={`flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4 md:space-x-6 mb-12 sm:mb-16 px-4 transition-all duration-1000 delay-600 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-        >
-          <a
-            href="#contact"
-            className="group w-full sm:w-auto flex items-center justify-center space-x-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full shadow-2xl hover:shadow-amber-500/40 hover:scale-105 transition-all duration-300 font-semibold text-base sm:text-lg border-2 border-transparent hover:border-amber-300"
-          >
-            <Calendar className="w-5 h-5 group-hover:animate-pulse" />
-            <span>Book Your Event</span>
-          </a>
-
-          <a
-            href="tel:+263714269900"
-            className="group w-full sm:w-auto flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-md text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full border border-white/30 hover:bg-white/20 hover:scale-105 hover:border-white/50 transition-all duration-300 font-semibold text-base sm:text-lg"
-          >
-            <Phone className="w-5 h-5 group-hover:animate-pulse" />
-            <span className="text-sm sm:text-base">+263 714 269 900</span>
-          </a>
-        </div>
-
-        {/* Enhanced Features Grid - Mobile Optimized */}
-        <div
-          className={`grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto mb-12 sm:mb-16 px-2 transition-all duration-1000 delay-700 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-        >
-          {[
-            {
-              icon: Calendar,
-              title: "Premium Events",
-              desc: "Weddings & Corporate Functions",
-              delay: "0ms",
-            },
-            {
-              icon: MapPin,
-              title: "Perfect Location",
-              desc: "Scenic Hogerty Hill Views",
-              delay: "150ms",
-            },
-            {
-              icon: Star,
-              title: "Luxury Service",
-              desc: "Exceptional Experience Always",
-              delay: "300ms",
-            },
-          ].map((feature, index) => (
+        {/* Enhanced Background with Multiple Layers */}
+        <div className="absolute inset-0">
+          {/* Rotating Background Images */}
+          {backgroundImages.map((image, index) => (
             <div
               key={index}
-              className="group bg-white/5 backdrop-blur-md rounded-2xl p-4 sm:p-6 border border-white/20 hover:bg-white/15 hover:border-white/40 hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer"
-              style={{ transitionDelay: feature.delay }}
-            >
-              <div className="flex flex-col items-center text-center">
-                <div className="p-3 sm:p-4 bg-amber-400/20 rounded-full mb-3 sm:mb-4 group-hover:bg-amber-400/30 group-hover:scale-110 transition-all duration-300">
-                  <feature.icon className="w-6 h-6 sm:w-8 sm:h-8 text-amber-400 group-hover:animate-pulse" />
-                </div>
-                <h3 className="text-white font-semibold text-base sm:text-lg mb-2 group-hover:text-amber-200 transition-colors duration-300">
-                  {feature.title}
-                </h3>
-                <p className="text-amber-100/80 text-xs sm:text-sm leading-relaxed group-hover:text-amber-100 transition-colors duration-300">
-                  {feature.desc}
-                </p>
-              </div>
-            </div>
+              className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-2000 ${
+                index === currentImageIndex ? 'opacity-70' : 'opacity-0'
+              }`}
+              style={{ backgroundImage: `url('${image}')` }}
+            />
           ))}
+          
+          {/* Enhanced Gradient Overlays */}
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/80 via-green-900/70 to-emerald-800/60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/30 via-transparent to-green-900/30" />
+
+          {/* Nature-Inspired Floating Elements */}
+          <div className="absolute inset-0">
+            {[...Array(25)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute rounded-full animate-pulse opacity-20"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  width: `${Math.random() * 6 + 2}px`,
+                  height: `${Math.random() * 6 + 2}px`,
+                  backgroundColor: `rgba(16, 185, 129, ${Math.random() * 0.4 + 0.2})`,
+                  animationDelay: `${Math.random() * 4}s`,
+                  animationDuration: `${Math.random() * 3 + 3}s`,
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Organic Leaf Shapes */}
+          <div className="absolute inset-0 overflow-hidden">
+            {[...Array(12)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute opacity-10 animate-float"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 5}s`,
+                  animationDuration: `${Math.random() * 6 + 6}s`,
+                }}
+              >
+                <TreePine className="w-4 h-4 md:w-6 md:h-6 text-emerald-400 transform rotate-12" />
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Enhanced Scroll Indicator */}
+        {/* Main Content Container */}
         <div
-          className={`flex flex-col items-center transition-all duration-1000 delay-800 ${
+          className={`relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 sm:pt-40 pb-16 transition-all duration-1000 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <p className="text-amber-200/80 text-xs sm:text-sm mb-3 sm:mb-4 font-medium tracking-wide">
-            DISCOVER MORE
-          </p>
-          <div className="animate-bounce">
-            <div className="p-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20 hover:bg-white/20 hover:scale-110 transition-all duration-300 cursor-pointer">
-              <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400" />
+          
+          {/* Eden Place Logo & Brand Identity */}
+          <div
+            className={`flex flex-col items-center mb-8 sm:mb-12 transition-all duration-1000 delay-200 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <div className="mb-6">
+              <EdenPlaceLogo size="large" />
+            </div>
+            <div className="text-center">
+              <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-4 tracking-tight">
+                EDEN PLACE
+              </h1>
+              <div className="flex items-center justify-center space-x-3 mb-4">
+                <div className="h-px bg-emerald-400 w-12 sm:w-20"></div>
+                <Leaf className="w-6 h-6 text-emerald-400" />
+                <div className="h-px bg-emerald-400 w-12 sm:w-20"></div>
+              </div>
+              <p className="text-xl sm:text-2xl md:text-3xl text-emerald-100 font-medium tracking-wide">
+                Your Favourite Functions Venue
+              </p>
+            </div>
+          </div>
+
+          {/* Enhanced Tagline */}
+          <div
+            className={`text-center mb-8 sm:mb-12 transition-all duration-1000 delay-400 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-emerald-50 mb-4 font-light max-w-4xl mx-auto leading-relaxed px-2">
+              Where nature meets elegance in the heart of
+              <span className="text-emerald-300 font-medium"> Harare, Zimbabwe</span>
+            </p>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-emerald-200 max-w-3xl mx-auto px-2 leading-relaxed">
+              Creating extraordinary moments in our premium event spaces surrounded by natural beauty
+            </p>
+          </div>
+
+          {/* Location Badge with Enhanced Design */}
+          <div
+            className={`flex justify-center mb-10 sm:mb-14 transition-all duration-1000 delay-500 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <div className="group flex items-center space-x-3 bg-white/10 backdrop-blur-lg rounded-full px-6 sm:px-8 py-3 sm:py-4 border border-emerald-300/30 hover:bg-white/20 hover:border-emerald-300/50 hover:scale-105 transition-all duration-300 cursor-pointer shadow-2xl">
+              <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-400 group-hover:animate-pulse" />
+              <span className="text-white text-sm sm:text-base lg:text-lg font-semibold">Hogerty Hill, Harare</span>
+              <div className="w-2 h-2 bg-emerald-400 rounded-full animate-ping"></div>
+            </div>
+          </div>
+
+          {/* Enhanced CTA Buttons */}
+          <div
+            className={`flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-14 sm:mb-18 px-4 transition-all duration-1000 delay-600 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <a
+              href="#contact"
+              className="group w-full sm:w-auto flex items-center justify-center space-x-4 bg-gradient-to-r from-emerald-500 via-emerald-600 to-green-600 hover:from-emerald-600 hover:via-green-600 hover:to-emerald-700 text-white px-8 sm:px-10 py-4 sm:py-5 rounded-full shadow-2xl hover:shadow-emerald-500/50 hover:scale-105 transition-all duration-300 font-bold text-base sm:text-lg border-2 border-transparent hover:border-emerald-200/50 relative overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+              <Calendar className="w-6 h-6 group-hover:animate-bounce relative z-10" />
+              <span className="relative z-10">Book Your Event</span>
+            </a>
+
+            <a
+              href="tel:+263714269900"
+              className="group w-full sm:w-auto flex items-center justify-center space-x-4 bg-white/10 backdrop-blur-lg text-white px-8 sm:px-10 py-4 sm:py-5 rounded-full border-2 border-emerald-300/40 hover:bg-white/20 hover:scale-105 hover:border-emerald-300/60 transition-all duration-300 font-semibold text-base sm:text-lg shadow-xl relative overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/20 to-emerald-500/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+              <Phone className="w-6 h-6 group-hover:animate-pulse relative z-10" />
+              <div className="text-center relative z-10">
+                <div className="text-sm sm:text-base">Call Now</div>
+                <div className="text-xs sm:text-sm opacity-90">+263 714 269 900</div>
+              </div>
+            </a>
+          </div>
+
+          {/* Enhanced Features Grid */}
+          <div
+            className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-6xl mx-auto mb-16 sm:mb-20 px-2 transition-all duration-1000 delay-700 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            {[
+              {
+                icon: Heart,
+                title: "Wedding Paradise",
+                desc: "Magical ceremonies in nature",
+                color: "from-pink-500 to-rose-500",
+                delay: "0ms",
+              },
+              {
+                icon: Users,
+                title: "Corporate Excellence",
+                desc: "Professional event solutions",
+                color: "from-blue-500 to-indigo-500",
+                delay: "150ms",
+              },
+              {
+                icon: Target,
+                title: "Team Activities",
+                desc: "Archery & outdoor adventures",
+                color: "from-orange-500 to-red-500",
+                delay: "300ms",
+              },
+              {
+                icon: Shield,
+                title: "Premium Service",
+                desc: "Exceptional hospitality always",
+                color: "from-emerald-500 to-green-500",
+                delay: "450ms",
+              },
+            ].map((feature, index) => (
+              <div
+                key={index}
+                className="group bg-white/5 backdrop-blur-lg rounded-3xl p-6 sm:p-8 border border-white/20 hover:bg-white/15 hover:border-emerald-300/40 hover:scale-105 hover:-translate-y-3 transition-all duration-500 cursor-pointer shadow-xl hover:shadow-2xl relative overflow-hidden"
+                style={{ transitionDelay: feature.delay }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-green-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="flex flex-col items-center text-center relative z-10">
+                  <div className={`p-4 sm:p-5 bg-gradient-to-br ${feature.color} rounded-full mb-4 sm:mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg`}>
+                    <feature.icon className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
+                  </div>
+                  <h3 className="text-white font-bold text-base sm:text-lg mb-3 group-hover:text-emerald-200 transition-colors duration-300">
+                    {feature.title}
+                  </h3>
+                  <p className="text-emerald-100/80 text-sm sm:text-base leading-relaxed group-hover:text-emerald-100 transition-colors duration-300">
+                    {feature.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Availability Notice */}
+          <div
+            className={`max-w-4xl mx-auto mb-12 transition-all duration-1000 delay-800 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <div className="bg-gradient-to-r from-amber-500/20 via-orange-500/20 to-red-500/20 backdrop-blur-lg rounded-2xl p-6 sm:p-8 border border-amber-300/30 text-center">
+              <div className="flex items-center justify-center mb-4">
+                <Info className="w-6 h-6 text-amber-400 mr-3" />
+                <h3 className="text-xl sm:text-2xl font-bold text-white">Important Notice</h3>
+              </div>
+              <p className="text-lg sm:text-xl font-bold text-amber-100 mb-2">
+                26 JULY & 12 AUGUST 2025 - FULLY BOOKED
+              </p>
+              <p className="text-sm sm:text-base text-amber-200/90 leading-relaxed">
+                Please note that we are fully booked on these dates and not taking bookings or activities for that date.
+              </p>
+            </div>
+          </div>
+
+          {/* Enhanced Scroll Indicator */}
+          <div
+            className={`flex flex-col items-center transition-all duration-1000 delay-900 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <p className="text-emerald-300/80 text-xs sm:text-sm mb-4 font-semibold tracking-widest uppercase">
+              Discover Eden Place
+            </p>
+            <div className="animate-bounce">
+              <div className="p-3 bg-white/10 backdrop-blur-lg rounded-full border border-emerald-300/30 hover:bg-white/20 hover:border-emerald-300/50 hover:scale-110 transition-all duration-300 cursor-pointer shadow-xl">
+                <ChevronDown className="w-6 h-6 sm:w-7 sm:h-7 text-emerald-400" />
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Additional Mobile-Specific Enhancements */}
-      <style jsx>{`
-        @media (max-width: 640px) {
-          .animate-bounce {
-            animation-duration: 2s;
+        {/* Custom Animations */}
+        <style jsx>{`
+          @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(5deg); }
+            50% { transform: translateY(-5px) rotate(-5deg); }
+            75% { transform: translateY(-15px) rotate(3deg); }
           }
-        }
-        
-        /* Custom scrollbar for better mobile experience */
-        ::-webkit-scrollbar {
-          width: 4px;
-        }
-        
-        ::-webkit-scrollbar-track {
-          background: rgba(0, 0, 0, 0.1);
-        }
-        
-        ::-webkit-scrollbar-thumb {
-          background: rgba(251, 191, 36, 0.5);
-          border-radius: 2px;
-        }
-        
-        /* Improve touch targets on mobile */
-        @media (max-width: 768px) {
-          button, a {
-            min-height: 44px;
+          
+          .animate-float {
+            animation: float 8s ease-in-out infinite;
           }
-        }
-      `}</style>
-    </section>
+          
+          /* Enhanced mobile experience */
+          @media (max-width: 640px) {
+            .animate-bounce {
+              animation-duration: 2s;
+            }
+          }
+          
+          /* Custom scrollbar */
+          ::-webkit-scrollbar {
+            width: 6px;
+          }
+          
+          ::-webkit-scrollbar-track {
+            background: rgba(16, 185, 129, 0.1);
+          }
+          
+          ::-webkit-scrollbar-thumb {
+            background: rgba(16, 185, 129, 0.6);
+            border-radius: 3px;
+          }
+          
+          /* Improve touch targets on mobile */
+          @media (max-width: 768px) {
+            button, a {
+              min-height: 48px;
+            }
+          }
+          
+          /* Custom gradient animation */
+          @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+          }
+        `}</style>
+      </section>
+    </>
   );
 };
 
