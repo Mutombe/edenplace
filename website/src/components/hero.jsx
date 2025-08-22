@@ -4,14 +4,15 @@ import Gallery from "./gallery";
 import VenueSpaces from "./venue";
 import About from './about';
 import Services from './services';
+import Contact from './contact';
 
 // Eden Place Logo Component
 const EdenPlaceLogo = ({ size = "default" }) => {
   const logoSize = size === "large" ? "w-20 h-20" : size === "small" ? "w-12 h-12" : "w-16 h-16";
 
   return (
-    <div className={`relative ${logoSize} rounded-xl bg-gradient-to-br from-emerald-600 via-green-600 to-emerald-700 flex items-center justify-center shadow-2xl overflow-hidden`}>
-      <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-green-700/20" />
+    <div className={`relative ${logoSize} rounded-xl flex items-center justify-center shadow-2xl overflow-hidden`}>
+      <div className="absolute inset-0" />
       <div className="relative z-10 w-full h-full flex items-center justify-center p-2">
         {/* Corrected tag and attribute */}
         <img src="/logo.png" alt="Eden Place Logo" className="w-full h-full object-contain filter brightness-75" />
@@ -25,9 +26,9 @@ const Hero = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
   const backgroundImages = [
-    '/archery.jpg',
-    'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80',
-    'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+    '/1.jpg',
+    '/2.jpg',
+    '/3.jpg',
   ];
 
   useEffect(() => {
@@ -45,7 +46,7 @@ const Hero = () => {
     <>
       <section
         id="home"
-        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-emerald-900 via-green-800 to-emerald-700"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-emerald-900 via-green-800 to-emerald-700 pt-16"
       >
         {/* Enhanced Background with Multiple Layers */}
         <div className="absolute inset-0">
