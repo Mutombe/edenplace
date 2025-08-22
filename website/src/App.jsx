@@ -1,7 +1,7 @@
 import React from "react";
 import { Toaster } from "sonner";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Hero from "./components/hero";
+import HomePage from "./components/hero";
 import ModernHeader from "./components/header";
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
       <div className="min-h-screen">
         <ModernHeader />
         <Routes>
-          <Route path="/" element={<Hero />} />
+          <Route path="/" element={<HomePage />} />
         </Routes>
         <Toaster
           position="top-right"

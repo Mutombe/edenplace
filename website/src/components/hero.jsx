@@ -25,7 +25,7 @@ const Hero = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
   const backgroundImages = [
-    'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2098&q=80',
+    '/archery.jpg',
     'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80',
     'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
   ];
@@ -336,4 +336,16 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+const HomePage = () => {
+  return (
+    <div>
+      <Hero />
+      <About />
+      <Services />
+      <VenueSpaces />
+      <Gallery />
+    </div>
+  );
+};
+
+export default HomePage;
