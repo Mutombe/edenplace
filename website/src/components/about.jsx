@@ -140,7 +140,7 @@ const About = () => {
     {
       name: "Sarah Mitchell",
       role: "Founder & Creative Director",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+      image: "/user.png",
       bio: "With over 15 years in luxury event planning, Sarah founded Eden Place to create unforgettable experiences.",
       specialties: ["Event Design", "Client Relations", "Strategic Planning"],
       color: "from-emerald-500 to-green-600"
@@ -148,7 +148,7 @@ const About = () => {
     {
       name: "Michael Chen",
       role: "Operations Manager",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+      image: "/user.png",
       bio: "Michael ensures every event runs flawlessly with his meticulous attention to detail and logistics expertise.",
       specialties: ["Logistics", "Vendor Management", "Quality Control"],
       color: "from-blue-500 to-cyan-600"
@@ -156,7 +156,7 @@ const About = () => {
     {
       name: "Elena Rodriguez",
       role: "Head of Design",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+      image: "/user.png",
       bio: "Elena transforms spaces into magical environments with her innovative design concepts and artistic vision.",
       specialties: ["Space Design", "Floral Arrangements", "Lighting Design"],
       color: "from-purple-500 to-pink-600"
